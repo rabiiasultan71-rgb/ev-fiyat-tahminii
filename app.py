@@ -6,7 +6,6 @@ from sklearn.preprocessing import StandardScaler, LabelEncoder
 
 app = Flask(__name__)
 
-
 df = pd.read_csv('data.csv')
 
 def oda_temizle(x):
@@ -17,9 +16,7 @@ def oda_temizle(x):
         return float(x)
     except: return 0
 
-# Veri Hazırlama
 df['Oda_S'] = df['Oda_Sayisi'].apply(oda_temizle)
-
 
 le = LabelEncoder()
 df['Sehir_Kod'] = le.fit_transform(df['Sehir']) 
@@ -30,6 +27,7 @@ y = df['fiyat']
 
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
+
 
 model_rf = RandomForestRegressor(n_estimators=100, random_state=42).fit(X_scaled, y)
 model_lr = LinearRegression().fit(X_scaled, y)
