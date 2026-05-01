@@ -1,34 +1,51 @@
-<form action="/predict" method="post">
-    <input type="number" name="metrekare" placeholder="Metrekare (Örn: 120)" required>
-    <input type="number" name="oda" placeholder="Oda Sayısı (Örn: 3)" required>
-    
-    <select name="sehir" required>
-        <option value="" disabled selected>İl Seçiniz</option>
-        {% for sehir in sehirler %}
-        <option value="{{ sehir }}">{{ sehir }}</option>
-        {% endfor %}
-    </select>
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        /* GitHub'a yüklediğin resmin adı arka-plan.jpg olmalı */
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                    url('arka-plan.jpg'); 
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        color: white;
+    }
 
-    <select name="ilce" required>
-        <option value="" disabled selected>İlçe Seçiniz</option>
-        {% for ilce in ilceler %}
-        <option value="{{ ilce }}">{{ ilce }}</option>
-        {% endfor %}
-    </select>
+    /* Formun daha şık görünmesi için cam efekti */
+    form {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 350px;
+    }
 
-    <select name="mahalle" required>
-        <option value="" disabled selected>Mahalle Seçiniz</option>
-        {% for mahalle in mahalleler %}
-        <option value="{{ mahalle }}">{{ mahalle }}</option>
-        {% endfor %}
-    </select>
+    input, select, button {
+        padding: 12px;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+    }
 
-    <select name="satici" required>
-        <option value="" disabled selected>Satıcı Tipi (Emlak/Sahibinden)</option>
-        {% for tip in satici_tipleri %}
-        <option value="{{ tip }}">{{ tip }}</option>
-        {% endfor %}
-    </select>
-    
-    <button type="submit">Fiyatı Tahmin Et</button>
-</form>
+    button {
+        background-color: #ff4d4d;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background-color: #ff3333;
+        transform: scale(1.02);
+    }
+</style>
