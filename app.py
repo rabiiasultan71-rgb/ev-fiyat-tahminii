@@ -6,6 +6,7 @@ from sklearn.preprocessing import StandardScaler, LabelEncoder
 
 app = Flask(__name__)
 
+
 df = pd.read_csv('data.csv')
 
 def oda_temizle(x):
@@ -16,10 +17,12 @@ def oda_temizle(x):
         return float(x)
     except: return 0
 
+
 df['Oda_S'] = df['Oda_Sayisi'].apply(oda_temizle)
 
+
 le = LabelEncoder()
-df['Sehir_Kod'] = le.fit_transform(df['Sehir']) 
+df['Sehir_Kod'] = le.fit_transform(df['il']) 
 
 
 X = df[['Metrekare', 'Oda_S', 'Sehir_Kod']]
@@ -33,7 +36,7 @@ model_rf = RandomForestRegressor(n_estimators=100, random_state=42).fit(X_scaled
 model_lr = LinearRegression().fit(X_scaled, y)
 
 
-sehirler = sorted(df['Sehir'].unique())
+sehirler = sorted(df['il'].unique())
 
 @app.route('/')
 def index():
@@ -45,6 +48,7 @@ def predict():
     oda = float(request.form['oda'])
     secilen_sehir = request.form['sehir']
     
+  
     sehir_kod = le.transform([secilen_sehir])[0]
     
     input_data = scaler.transform([[mkare, oda, sehir_kod]])
@@ -57,3 +61,4 @@ def predict():
 
 if __name__ == '__main__':
     app.run(debug=True)
+  
